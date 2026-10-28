@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Unit 8C Breathing Revision</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: sticky three-step tab bar (Learn → Check → Write) over a single 760px reading column */
+:root{
+  --bg:#f3f6f8; --surface:#ffffff; --ink:#14232c; --muted:#56697a; --line:#d7e0e6;
+  --air:#1f6f8b; --air-soft:#e1f0f5; --blood:#c0392b; --blood-soft:#fbe8e5;
+  --good:#1e7a46; --good-soft:#e2f4ea; --warn:#9a6200; --warn-soft:#fff3d9;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible",ui-sans-serif,system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f171c; --surface:#172229; --ink:#e4edf2; --muted:#9bb0bf; --line:#2a3a44;
+  --air:#6cc3e0; --air-soft:#16323d; --blood:#ff8a7a; --blood-soft:#3a1f1c;
+  --good:#6fd39a; --good-soft:#163323; --warn:#f0c060; --warn-soft:#3a2f14; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f171c; --surface:#172229; --ink:#e4edf2; --muted:#9bb0bf; --line:#2a3a44;
+  --air:#6cc3e0; --air-soft:#16323d; --blood:#ff8a7a; --blood-soft:#3a1f1c;
+  --good:#6fd39a; --good-soft:#163323; --warn:#f0c060; --warn-soft:#3a2f14; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{padding-block:28px 18px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(2rem,6vw,2.9rem);line-height:1.05;margin:.25em 0 .3em;text-wrap:balance}
+h1 em{font-style:normal;color:var(--blood)}
+.lede{color:var(--muted);margin:0;max-width:60ch}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto}
+nav.tabs a{flex:1;min-width:110px;text-decoration:none;color:var(--muted);padding:12px 8px 10px;border-bottom:3px solid transparent;text-align:center;font-weight:700;font-size:15px}
+nav.tabs a small{display:block;font-weight:400;font-size:12px}
+nav.tabs a[aria-current="page"]{color:var(--air);border-bottom-color:var(--air)}
+nav.tabs a:focus-visible,button:focus-visible,textarea:focus-visible{outline:3px solid var(--air);outline-offset:2px}
+main{padding-block:24px 64px}
+h2{font-family:var(--display);font-weight:800;font-size:1.6rem;margin:0 0 .3em;text-wrap:balance}
+h3{font-family:var(--display);font-weight:600;font-size:1.15rem;margin:0}
+p{margin:.4em 0}
+
+/* three words box */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 8px}
+.three div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px}
+.three b{display:block;font-family:var(--display);font-size:1.05rem}
+.three div:nth-child(1) b{color:var(--air)} .three div:nth-child(2) b{color:var(--good)} .three div:nth-child(3) b{color:var(--blood)}
+.three span{font-size:14px;color:var(--muted)}
+@media (max-width:560px){.three{grid-template-columns:1fr}}
+
+/* KO sections */
+.ko{display:grid;gap:18px;margin-top:22px}
+details.topic{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+details.topic>summary{list-style:none;cursor:pointer;padding:16px 18px;display:flex;gap:12px;align-items:baseline}
+details.topic>summary::-webkit-details-marker{display:none}
+.code{font-family:var(--display);font-weight:800;color:var(--air);min-width:3.2em}
+.sumtxt{flex:1;min-width:0}
+.sumtxt small{display:block;color:var(--muted);font-size:13px}
+.chev{color:var(--muted);transition:transform .2s}
+details[open] .chev{transform:rotate(90deg)}
+.rows{padding:0 18px 18px;display:grid;gap:12px}
+.row{display:grid;grid-template-columns:96px 1fr;gap:12px;border-top:1px solid var(--line);padding-top:12px}
+.row>.lab{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--muted);padding-top:3px}
+.row>div{min-width:0}
+@media (max-width:560px){.row{grid-template-columns:1fr;gap:4px}}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{background:var(--air-soft);color:var(--ink);border-radius:999px;padding:2px 10px;font-size:14px}
+.watch{background:var(--warn-soft);border-left:4px solid var(--warn);padding:10px 12px;border-radius:0 8px 8px 0}
+.watch ul{margin:0;padding-left:1.1em}
+.chain{list-style:none;padding:0;margin:8px 0;display:grid;gap:0}
+.chain li{display:flex;gap:10px;align-items:flex-start}
+.chain .n{flex:0 0 26px;height:26px;border-radius:50%;background:var(--air);color:var(--surface);font-weight:700;display:grid;place-items:center;font-size:14px}
+.chain.out .n{background:var(--blood)}
+.chain li.join{display:block;padding-left:36px;font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:2px 0}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:15px}
+th,td{text-align:left;padding:6px 10px;border-bottom:1px solid var(--line)}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+td.up{color:var(--blood);font-weight:700} td.down{color:var(--air);font-weight:700}
+.eq{font-family:var(--display);font-weight:600;font-size:1.1rem;background:var(--blood-soft);padding:10px 12px;border-radius:8px;overflow-x:auto}
+.ext{background:var(--good-soft);padding:10px 12px;border-radius:8px}
+.airway{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-weight:700;margin:6px 0}
+.airway span{background:var(--air-soft);padding:2px 10px;border-radius:6px}
+.airway i{font-style:normal;color:var(--muted)}
+
+/* Quiz */
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:10px 0 18px}
+.bar>i{display:block;height:100%;background:var(--air);width:0;transition:width .3s}
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px}
+.qmeta{font-size:13px;color:var(--muted);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.qtext{font-size:1.15rem;font-weight:700;margin:8px 0 14px}
+.opts{display:grid;gap:8px}
+.opt{font:inherit;text-align:left;background:var(--bg);color:var(--ink);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--air)}
+.opt.right{border-color:var(--good);background:var(--good-soft)}
+.opt.wrong{border-color:var(--blood);background:var(--blood-soft)}
+.opt:disabled{cursor:default}
+.fb{margin-top:14px;padding:12px;border-radius:8px}
+.fb.ok{background:var(--good-soft)} .fb.no{background:var(--blood-soft)}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.btn{font:inherit;font-weight:700;border:0;border-radius:10px;padding:10px 18px;cursor:pointer;background:var(--air);color:var(--surface)}
+.btn.ghost{background:transparent;color:var(--air);border:2px solid var(--air)}
+.score{font-family:var(--display);font-weight:800;font-size:3rem;color:var(--air);line-height:1}
+.review{display:grid;gap:8px;margin-top:14px}
+.review div{font-size:15px;padding:8px 12px;border-radius:8px;background:var(--blood-soft)}
+
+/* Short answers */
+.sa{display:grid;gap:18px;margin-top:16px}
+.sacard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
+.sahead{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.marks{font-size:13px;font-weight:700;color:var(--blood);white-space:nowrap}
+.cmd{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--air-soft);color:var(--air);padding:1px 8px;border-radius:4px}
+textarea{width:100%;min-height:96px;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px;margin-top:10px;resize:vertical}
+.ms{margin-top:12px;border-top:1px dashed var(--line);padding-top:12px}
+.ms label{display:flex;gap:10px;align-items:flex-start;padding:4px 0;cursor:pointer}
+.ms input{margin-top:5px;accent-color:var(--good);width:18px;height:18px;flex:0 0 auto}
+.ms .tip{font-size:14px;color:var(--muted);margin-top:6px}
+.tally{position:sticky;bottom:env(safe-area-inset-bottom,0px);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-top:20px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.tally b{font-family:var(--display);font-size:1.4rem;color:var(--good);font-variant-numeric:tabular-nums}
+.note{font-size:14px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top wrap">
+  <div class="eyebrow">Year 8 Science · Unit 8C</div>
+  <h1>Breathing and <em>respiration</em></h1>
+  <p class="lede">Learn it from the knowledge organiser, check it with the quiz, then write it out like the real paper.</p>
+</header>
+
+<nav class="tabs" aria-label="Revision steps">
+  <div class="wrap">
+    <a href="#learn" data-view="learn">1 · Learn<small>Knowledge organiser</small></a>
+    <a href="#check" data-view="check">2 · Check<small>Multiple choice</small></a>
+    <a href="#write" data-view="write">3 · Write<small>Short answers</small></a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ================= LEARN ================= -->
+<section id="v-learn">
+  <h2>Three words that are not the same</h2>
+  <p>Almost every mark lost in this unit comes from using the wrong one. Check which one the question is about before you answer.</p>
+  <div class="three">
+    <div><b>Breathing</b><span>Air moving in and out of the lungs. Done by muscles.</span></div>
+    <div><b>Gas exchange</b><span>Oxygen and carbon dioxide swapping places at the alveoli.</span></div>
+    <div><b>Respiration</b><span>A chemical reaction in every cell that releases energy.</span></div>
+  </div>
+  <p class="note">The summative paper covers 8A and 8C together. 8C is 28 marks in 35 minutes.</p>
+
+  <div class="ko">
+
+  <details class="topic" open>
+    <summary><span class="code">8C1</span><span class="sumtxt"><h3>The gas exchange system</h3><small>Lesson 1 · Question 1</small></span><span class="chev">›</span></summary>
+    <div class="rows">
+      <div class="row"><span class="lab">State</span><div>
+        <div class="airway"><span>nose / mouth</span><i>→</i><span>trachea</span><i>→</i><span>bronchus</span><i>→</i><span>bronchiole</span><i>→</i><span>alveolus</span></div>
+        Also: the <b>rib cage</b>, the <b>intercostal muscles</b> between the ribs, and the <b>diaphragm</b> (a sheet of muscle below the lungs).</div></div>
+      <div class="row"><span class="lab">Describe</span><div>
+        <p><b>Trachea</b> carries air down from the throat. Rings of cartilage hold it open so it cannot collapse.</p>
+        <p><b>Bronchi</b> are two tubes, one into each lung.</p>
+        <p><b>Bronchioles</b> branch again and again, getting narrower.</p>
+        <p><b>Alveoli</b> are tiny air sacs at the ends. The only place gases move between air and blood.</p></div></div>
+      <div class="row"><span class="lab">Explain</span><div>Oxygen diffuses from the air in the alveolus into the blood. Carbon dioxide diffuses from the blood into the alveolus. Both move from where there is more of them to where there is less.</div></div>
+      <div class="row"><span class="lab">Evaluate</span><div>
+        <p><b>Feature → consequence → effect</b> (same answer shape as villi in 8A6):</p>
+        <ul>
+          <li>Millions of alveoli → very large surface area → more gas exchanged at once.</li>
+          <li>Wall one cell thick → short diffusion distance → faster diffusion.</li>
+          <li>Moist lining → gases dissolve before they diffuse across.</li>
+          <li>Wrapped in capillaries → blood carries gases away → concentration gradient kept going.</li>
+        </ul></div></div>
+      <div class="row"><span class="lab">Vocab</span><div class="chips"><span>trachea</span><span>cartilage</span><span>bronchus / bronchi</span><span>bronchiole</span><span>alveolus / alveoli</span><span>diaphragm</span><span>intercostal muscle</span><span>rib cage</span><span>gas exchange</span><span>diffusion</span><span>capillary</span><span>concentration gradient</span><span>surface area</span></div></div>
+      <div class="row"><span class="lab">Watch</span><div class="watch"><ul><li>Bronchus = one, bronchi = more than one. Alveolus = one, alveoli = more than one.</li><li>The lungs contain no muscle.</li></ul></div></div>
+    </div>
+  </details>
+
+  <details class="topic">
+    <summary><span class="code">8C2</span><span class="sumtxt"><h3>Breathing: how the muscles move the air</h3><small>Lesson 2 · Question 2 · The hardest idea in the unit</small></span><span class="chev">›</span></summary>
+    <div class="rows">
+      <div class="row"><span class="lab">State</span><div><b>The lungs contain no muscle and cannot pull air in.</b> The diaphragm and intercostal muscles do all the work; the lungs follow.</div></div>
+      <div class="row"><span class="lab">Describe</span><div>
+        <div class="tablewrap"><table>
+          <tr><th></th><th>Breathing in</th><th>Breathing out</th></tr>
+          <tr><td>Intercostals</td><td>contract; ribs up and out</td><td>relax; ribs down and in</td></tr>
+          <tr><td>Diaphragm</td><td>contracts, flattens, moves down</td><td>relaxes, domes back up</td></tr>
+        </table></div></div></div>
+      <div class="row"><span class="lab">Explain</span><div>
+        <p><b>Learn it as a chain. The marks are in the joins.</b></p>
+        <p><b>Breathing in</b></p>
+        <ol class="chain">
+          <li><span class="n">1</span>The muscles contract</li><li class="join">so</li>
+          <li><span class="n">2</span>the volume of the chest increases</li><li class="join">which means</li>
+          <li><span class="n">3</span>the pressure inside the lungs decreases</li><li class="join">so</li>
+          <li><span class="n">4</span>pressure outside is higher than inside</li><li class="join">therefore</li>
+          <li><span class="n">5</span>air moves in, from high to low pressure</li>
+        </ol>
+        <p><b>Breathing out</b></p>
+        <ol class="chain out">
+          <li><span class="n">1</span>The muscles relax</li><li class="join">so</li>
+          <li><span class="n">2</span>the volume of the chest decreases</li><li class="join">which means</li>
+          <li><span class="n">3</span>the pressure inside the lungs increases</li><li class="join">so</li>
+          <li><span class="n">4</span>pressure inside is higher than outside</li><li class="join">therefore</li>
+          <li><span class="n">5</span>air moves out</li>
+        </ol>
+        <p>Year 7 link: squeeze the same particles into a smaller space and they hit the walls more often, so pressure goes up.</p></div></div>
+      <div class="row"><span class="lab">Evaluate</span><div>
+        <p><b>Exercise:</b> muscles contract harder and faster → bigger volume change → more air per breath.</p>
+        <p><b>High altitude:</b> fewer oxygen particles in the same volume → less oxygen enters the blood per breath, even though breathing works normally.</p>
+        <p><b>Narrow airways:</b> air moves less easily → more effort for the same volume.</p>
+        <p><b>Bell jar model:</b> good at showing that pulling the sheet down increases volume and draws air into the balloons. Limited because the jar is rigid (a real rib cage moves), there are no intercostal muscles, and the balloons do not branch into millions of alveoli.</p></div></div>
+      <div class="row"><span class="lab">Vocab</span><div class="chips"><span>contract</span><span>relax</span><span>volume</span><span>pressure</span><span>pressure difference</span><span>inhalation</span><span>exhalation</span><span>model</span><span>limitation</span></div></div>
+      <div class="row"><span class="lab">Watch</span><div class="watch"><ul><li><b>"The lungs suck the air in" scores nothing.</b></li><li>Contract means the muscle gets shorter. The diaphragm contracts to move <b>down</b>.</li><li>Don't join steps with "and then". Use so, which means, therefore, because.</li></ul></div></div>
+    </div>
+  </details>
+
+  <details class="topic">
+    <summary><span class="code">8C3</span><span class="sumtxt"><h3>Inhaled and exhaled air</h3><small>Lesson 3 · Question 3</small></span><span class="chev">›</span></summary>
+    <div class="rows">
+      <div class="row"><span class="lab">State</span><div><div class="tablewrap"><table>
+        <tr><th>Gas</th><th>Inhaled</th><th>Exhaled</th><th>Change</th></tr>
+        <tr><td>Nitrogen</td><td>about 78%</td><td>about 78%</td><td>none</td></tr>
+        <tr><td>Oxygen</td><td>about 21%</td><td>about 16%</td><td class="down">down</td></tr>
+        <tr><td>Carbon dioxide</td><td>about 0.04%</td><td>about 4%</td><td class="up">up ×100</td></tr>
+        <tr><td>Water vapour</td><td>some</td><td>more</td><td class="up">up</td></tr>
+        <tr><td>Temperature</td><td>cooler</td><td>warmer</td><td class="up">up</td></tr>
+      </table></div></div></div>
+      <div class="row"><span class="lab">Describe</span><div>Limewater turns from clear to cloudy with carbon dioxide. It goes cloudy much faster with exhaled air.</div></div>
+      <div class="row"><span class="lab">Explain</span><div>
+        <p><b>Oxygen falls</b> because some diffuses from the alveoli into the blood, to be used in respiration.</p>
+        <p><b>Carbon dioxide rises</b> because respiration in cells makes it; the blood carries it to the lungs and it diffuses into the alveoli.</p>
+        <p><b>Nitrogen doesn't change</b> because the body has no use for it.</p>
+        <p>Only about a quarter of the oxygen breathed in is used, which is why rescue breathing works.</p></div></div>
+      <div class="row"><span class="lab">Evaluate</span><div>Interpret limewater or indicator results. To make results more reliable: repeat each reading and compare them, and use the same volume of air each time.</div></div>
+      <div class="row"><span class="lab">Vocab</span><div class="chips"><span>inhaled</span><span>exhaled</span><span>composition</span><span>percentage</span><span>limewater</span><span>reliable</span><span>repeat</span><span>pattern</span></div></div>
+      <div class="row"><span class="lab">Watch</span><div class="watch"><ul><li>Exhaled air is <b>not</b> "all carbon dioxide". It is still 78% nitrogen and 16% oxygen.</li><li>Air and oxygen are not the same word.</li><li>Say "about 16%". Say the hundredfold increase in CO₂.</li></ul></div></div>
+    </div>
+  </details>
+
+  <details class="topic">
+    <summary><span class="code">8C4</span><span class="sumtxt"><h3>Aerobic respiration</h3><small>Lesson 4 · Questions 4 and 6</small></span><span class="chev">›</span></summary>
+    <div class="rows">
+      <div class="row"><span class="lab">State</span><div>
+        <p><b>Respiration releases energy from glucose.</b> It happens in every living cell, all the time.</p>
+        <div class="eq">glucose + oxygen → carbon dioxide + water <span style="font-weight:400">(energy released)</span></div></div></div>
+      <div class="row"><span class="lab">Describe</span><div>Reactants: glucose and oxygen. Products: carbon dioxide and water. Happens in the <b>mitochondria</b>. Energy is used for movement, keeping warm, growth and repair, and building new molecules.</div></div>
+      <div class="row"><span class="lab">Explain</span><div>
+        <p>Mitochondria are where aerobic respiration happens, so cells that need lots of energy have more of them.</p>
+        <p><b>Breathing vs respiration:</b> breathing moves air in and out using muscles (a movement). Respiration is a chemical reaction in every cell that releases energy (a reaction).</p></div></div>
+      <div class="row"><span class="lab">Evaluate</span><div>A muscle cell contracts constantly and needs a lot of energy, so it has many mitochondria. A cell that does very little needs fewer.</div></div>
+      <div class="row"><span class="lab">Extension</span><div class="ext">
+        <p><b>Anaerobic respiration (not enough oxygen)</b></p>
+        <p>glucose → lactic acid <span class="note">(a small amount of energy released)</span></p>
+        <p>Much less energy, because glucose is not fully broken down. Lactic acid builds up and causes fatigue. The <b>oxygen debt</b> is the extra oxygen needed afterwards to break lactic acid down, so you keep breathing hard after you stop.</p></div></div>
+      <div class="row"><span class="lab">Vocab</span><div class="chips"><span>aerobic</span><span>anaerobic</span><span>glucose</span><span>released</span><span>transferred</span><span>mitochondria</span><span>reactant</span><span>product</span><span>lactic acid</span><span>oxygen debt</span><span>fatigue</span></div></div>
+      <div class="row"><span class="lab">Watch</span><div class="watch"><ul><li>"Energy is made / produced" is marked wrong. Energy is <b>released</b> or <b>transferred</b>.</li><li>Respiration is not breathing.</li><li>Not photosynthesis backwards: different reaction, different place.</li><li>Lactic acid is not lactose. Oxygen debt is repaid <b>after</b> exercise.</li></ul></div></div>
+    </div>
+  </details>
+
+  <details class="topic">
+    <summary><span class="code">8C5</span><span class="sumtxt"><h3>The effect of exercise</h3><small>Lesson 5 practical · Questions 5 and 6</small></span><span class="chev">›</span></summary>
+    <div class="rows">
+      <div class="row"><span class="lab">State</span><div>During exercise, breathing rate, breathing depth and heart rate all increase. <b>Breathing rate</b> = breaths per minute. <b>Heart (pulse) rate</b> = beats per minute. <b>Recovery time</b> = time to return to resting values.</div></div>
+      <div class="row"><span class="lab">Describe</span><div>Measure pulse and breathing rate, take repeats, calculate a mean.</div></div>
+      <div class="row"><span class="lab">Explain</span><div>
+        <ol class="chain">
+          <li><span class="n">1</span>Muscles contract more</li><li class="join">so</li>
+          <li><span class="n">2</span>they need more energy</li><li class="join">so</li>
+          <li><span class="n">3</span>the rate of respiration in muscle cells increases</li><li class="join">which</li>
+          <li><span class="n">4</span>needs more oxygen and glucose delivered, and makes more CO₂ to remove</li><li class="join">so</li>
+          <li><span class="n">5</span>breathing gets faster and deeper, and the heart beats faster to carry O₂ to muscles and CO₂ away</li>
+        </ol></div></div>
+      <div class="row"><span class="lab">Evaluate</span><div>Describe the pattern using numbers, spot anomalies, and conclude by answering the question. A shorter recovery time <b>suggests</b> a person is fitter. It does not prove it.</div></div>
+      <div class="row"><span class="lab">Vocab</span><div class="chips"><span>breathing rate</span><span>breathing depth</span><span>heart rate</span><span>pulse rate</span><span>recovery time</span><span>fitness</span><span>independent variable</span><span>dependent variable</span><span>control variable</span><span>mean</span><span>anomaly</span></div></div>
+      <div class="row"><span class="lab">Watch</span><div class="watch"><ul><li>"The body needs more energy" is not the whole answer: say what is delivered and what is removed.</li><li>Pulse rate, heart rate and breathing rate are different measurements.</li></ul></div></div>
+    </div>
+  </details>
+
+  <details class="topic">
+    <summary><span class="code">WS7</span><span class="sumtxt"><h3>Analysing data and drawing conclusions</h3><small>Lessons 3 and 5 · Questions 3 and 5</small></span><span class="chev">›</span></summary>
+    <div class="rows">
+      <div class="row"><span class="lab">State</span><div><b>Reliable</b>: repeating it gives a similar answer. <b>Anomaly</b>: a result that does not fit the pattern.</div></div>
+      <div class="row"><span class="lab">Describe</span><div>Describe a pattern ("as X increases, Y decreases") then quote two numbers that show it. Calculate a mean, leaving out any anomaly.</div></div>
+      <div class="row"><span class="lab">Explain</span><div>One set of readings is not enough to be confident; comparing with other groups helps. An anomaly is left out of the mean, not deleted from the table.</div></div>
+      <div class="row"><span class="lab">Evaluate</span><div>Judge whether a conclusion is supported or goes further than the data. Suggest one improvement and say exactly what it fixes (never "be more careful").</div></div>
+      <div class="row"><span class="lab">Watch</span><div class="watch"><ul><li>"It went up" is not a description. Use the numbers.</li><li>A conclusion answers the original question.</li><li>Reliable and accurate are different words.</li></ul></div></div>
+    </div>
+  </details>
+
+  </div>
+  <div class="btns"><a class="btn" href="#check" style="text-decoration:none">Next: check yourself →</a></div>
+</section>
+
+<!-- ================= CHECK ================= -->
+<section id="v-check" hidden>
+  <h2>Multiple choice check</h2>
+  <p class="note">20 questions in a random order. Read the explanation every time, even when you get it right.</p>
+  <div class="bar"><i id="qbar"></i></div>
+  <div id="quiz"></div>
+</section>
+
+<!-- ================= WRITE ================= -->
+<section id="v-write" hidden>
+  <h2>Short answer practice</h2>
+  <p>Write your answer first. Then open the mark scheme and tick only the points you actually wrote.</p>
+  <div class="sa" id="sa"></div>
+  <div class="tally"><span>Self-marked: <b id="tot">0 / 0</b></span><button class="btn ghost" id="resetSA" type="button">Clear all answers</button></div>
+</section>
+
+</main>
+
+<script>
+(function(){
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- routing ---------- */
+const views=["learn","check","write"];
+function show(){
+  const h=(location.hash||"#learn").slice(1);const v=views.includes(h)?h:"learn";
+  views.forEach(n=>{document.getElementById("v-"+n).hidden=n!==v});
+  document.querySelectorAll("nav.tabs a").forEach(a=>{if(a.dataset.view===v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+  window.scrollTo({top:0});
+}
+window.addEventListener("hashchange",show);show();
+
+/* ---------- MCQ ---------- */
+const Q=[
+{t:"8C1",q:"Which is the correct order that air travels through?",o:["trachea → bronchiole → bronchus → alveolus","trachea → bronchus → bronchiole → alveolus","bronchus → trachea → alveolus → bronchiole","alveolus → bronchiole → bronchus → trachea"],a:1,e:"Trachea first, splits into two bronchi, which branch into bronchioles, which end in alveoli."},
+{t:"8C1",q:"What holds the trachea open so it cannot collapse?",o:["Muscle","Rings of cartilage","The diaphragm","Capillaries"],a:1,e:"Rings of cartilage keep the trachea open."},
+{t:"8C1",q:"Where do gases move between the air and the blood?",o:["Trachea","Bronchi","Alveoli","Bronchioles"],a:2,e:"Alveoli are the only place gas exchange happens."},
+{t:"8C1",q:"Why does a wall one cell thick help gas exchange?",o:["It makes the surface area larger","It gives a short diffusion distance, so diffusion is faster","It keeps the lining moist","It pumps the gases across"],a:1,e:"Feature → consequence → effect: one cell thick → short distance → faster diffusion."},
+{t:"8C1",q:"What is the job of the capillaries around each alveolus?",o:["They squeeze the alveolus to push air out","They carry gases away so the concentration gradient is kept","They make oxygen","They hold the alveolus open"],a:1,e:"Blood flow removes oxygen and brings carbon dioxide, keeping the gradient going."},
+{t:"8C1",q:"Which word means more than one?",o:["Bronchus","Alveolus","Bronchi","Trachea"],a:2,e:"Bronchus is one, bronchi is more than one. Same for alveolus/alveoli."},
+{t:"8C2",q:"What happens to the diaphragm when you breathe in?",o:["It relaxes and moves up","It contracts and moves up","It contracts, flattens and moves down","It relaxes and flattens"],a:2,e:"The diaphragm contracts to flatten and move down. Many people wrongly think moving down means relaxing."},
+{t:"8C2",q:"When you breathe in, the volume of the chest increases. What happens to the pressure inside the lungs?",o:["It increases","It decreases","It stays the same","It becomes zero"],a:1,e:"Bigger volume → particles hit the walls less often → lower pressure."},
+{t:"8C2",q:"Which statement correctly explains why air moves into the lungs?",o:["The lungs suck the air in","The lungs expand by themselves","The pressure outside is higher than inside, so air moves in","Oxygen is attracted to the blood"],a:2,e:"Air moves from high pressure to low pressure. The lungs have no muscle and cannot suck."},
+{t:"8C2",q:"When you breathe out, the intercostal muscles…",o:["contract and the ribs move up and out","relax and the ribs move down and in","contract and the ribs move down","relax and the ribs move up and out"],a:1,e:"Breathing out: intercostals relax, ribs down and in, diaphragm domes up."},
+{t:"8C2",q:"Which is a limitation of the bell jar model of breathing?",o:["It shows volume increasing when the sheet is pulled","The glass jar is rigid but a real rib cage moves","The balloons inflate","It uses a rubber sheet as the diaphragm"],a:1,e:"The rigid jar, no intercostal muscles and no alveoli are the model's limitations."},
+{t:"8C2",q:"At high altitude, why does less oxygen enter the blood with each breath?",o:["The lungs stop working","There are fewer oxygen particles in the same volume of air","The diaphragm cannot contract","Breathing rate falls to zero"],a:1,e:"Breathing works normally, but each breath contains fewer oxygen particles."},
+{t:"8C3",q:"What is the approximate percentage of oxygen in exhaled air?",o:["0.04%","4%","16%","21%"],a:2,e:"About 21% in, about 16% out."},
+{t:"8C3",q:"What is the approximate percentage of carbon dioxide in exhaled air?",o:["0.04%","4%","16%","78%"],a:1,e:"From about 0.04% to about 4%: a hundredfold increase."},
+{t:"8C3",q:"Why does the amount of nitrogen not change between inhaled and exhaled air?",o:["It is used up and replaced","The body has no use for it","It turns into oxygen","It dissolves in the blood and stays there"],a:1,e:"Nitrogen goes in and comes straight back out."},
+{t:"8C3",q:"What does limewater show when exhaled air is bubbled through it?",o:["It turns blue","It stays clear","It turns cloudy, faster than with inhaled air","It turns pink"],a:2,e:"Limewater goes cloudy with carbon dioxide, faster with exhaled air because it has more CO₂."},
+{t:"8C4",q:"Which is the word equation for aerobic respiration?",o:["carbon dioxide + water → glucose + oxygen","glucose + oxygen → carbon dioxide + water","glucose → lactic acid","oxygen + water → glucose + carbon dioxide"],a:1,e:"Glucose + oxygen → carbon dioxide + water (energy released). The first option is photosynthesis."},
+{t:"8C4",q:"Where in the cell does aerobic respiration happen?",o:["Nucleus","Cell membrane","Mitochondria","Cytoplasm only"],a:2,e:"Aerobic respiration happens in the mitochondria."},
+{t:"8C4",q:"Which sentence would get the mark?",o:["Respiration makes energy","Respiration produces energy","Respiration releases energy","Respiration is breathing in oxygen"],a:2,e:"Energy is released or transferred, never made or produced."},
+{t:"8C4",q:"Why does a muscle cell contain many mitochondria?",o:["It needs a lot of energy because it contracts constantly","It stores oxygen","It makes glucose","It does very little"],a:0,e:"More energy needed → more respiration → more mitochondria."},
+{t:"8C4",q:"Extension: what is produced by anaerobic respiration in humans?",o:["Carbon dioxide and water","Lactic acid","Lactose","Oxygen"],a:1,e:"Glucose → lactic acid. Lactic acid is not lactose."},
+{t:"8C5",q:"During exercise, why does breathing become faster and deeper?",o:["To cool the lungs","To get more oxygen into the blood and remove more carbon dioxide","Because the lungs need energy","To slow the heart down"],a:1,e:"Muscles respire faster, needing more oxygen delivered and more CO₂ removed."},
+{t:"8C5",q:"What does recovery time mean?",o:["How long you exercise for","Time for breathing and heart rate to return to resting values","Your fastest heart rate","How many breaths you take in a minute"],a:1,e:"Recovery time is how long it takes to return to resting values after exercise stops."},
+{t:"WS7",q:"Readings: 72, 74, 98, 73 beats per minute. What is the mean, leaving out the anomaly?",o:["79","73","74","72"],a:1,e:"98 is the anomaly. (72 + 74 + 73) ÷ 3 = 73."},
+{t:"WS7",q:"A result is reliable if…",o:["it is very close to the true value","repeating it gives a similar answer","it is the biggest number","it was measured by a teacher"],a:1,e:"Reliable = repeatable. Accurate = close to the true value. Different words."},
+{t:"WS7",q:"Which is the best description of a pattern?",o:["It went up","Heart rate went up a lot","As exercise time increased from 1 to 4 minutes, heart rate increased from 80 to 140 bpm","The results were good"],a:2,e:"Describe the trend and quote two numbers."}
+];
+const quizEl=document.getElementById("quiz"),bar=document.getElementById("qbar");
+let order,idx,score,missed;
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function startQuiz(){order=shuffle(Q).slice(0,20);idx=0;score=0;missed=[];renderQ()}
+function renderQ(){
+  bar.style.width=(idx/order.length*100)+"%";
+  if(idx>=order.length)return renderEnd();
+  const q=order[idx];const opts=shuffle(q.o.map((t,i)=>({t,i})));
+  quizEl.innerHTML=`<div class="qcard"><div class="qmeta"><span>Question ${idx+1} of ${order.length}</span><span>${q.t} · Score ${score}</span></div>
+  <div class="qtext">${q.q}</div><div class="opts">${opts.map(o=>`<button class="opt" type="button" data-i="${o.i}">${o.t}</button>`).join("")}</div><div id="fbx"></div></div>`;
+  quizEl.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>answer(b,q)));
+}
+function answer(b,q){
+  const pick=+b.dataset.i,ok=pick===q.a;if(ok)score++;else missed.push(q);
+  quizEl.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(+x.dataset.i===q.a)x.classList.add("right")});
+  if(!ok)b.classList.add("wrong");
+  document.getElementById("fbx").innerHTML=`<div class="fb ${ok?"ok":"no"}"><b>${ok?"Correct.":"Not quite."}</b> ${q.e}</div><div class="btns"><button class="btn" type="button" id="nx">${idx+1<order.length?"Next question":"See my score"}</button></div>`;
+  const nx=document.getElementById("nx");nx.focus();nx.addEventListener("click",()=>{idx++;renderQ()});
+}
+function renderEnd(){
+  const pct=Math.round(score/order.length*100);
+  const topics=[...new Set(missed.map(m=>m.t))];
+  quizEl.innerHTML=`<div class="qcard"><div class="eyebrow">Your score</div><div class="score">${score} / ${order.length}</div>
+  <p>${pct>=80?"Strong. Move on to the short answers.":pct>=50?"Getting there. Re-read the topics below, then try again.":"Go back to the knowledge organiser for the topics below before trying again."}</p>
+  ${topics.length?`<p><b>Topics to revisit:</b> ${topics.join(", ")}</p>`:""}
+  ${missed.length?`<div class="review">${missed.map(m=>`<div><b>${m.q}</b><br>Answer: ${m.o[m.a]}</div>`).join("")}</div>`:""}
+  <div class="btns"><button class="btn" type="button" id="again">Try a new set</button><a class="btn ghost" href="#write" style="text-decoration:none">Short answers →</a></div></div>`;
+  document.getElementById("again").addEventListener("click",startQuiz);
+}
+startQuiz();
+
+/* ---------- Short answers ---------- */
+const S=[
+{t:"8C1",c:"State",m:2,q:"Name the two structures that air passes through between the trachea and the alveoli.",p:["bronchus / bronchi","bronchiole(s)"],tip:"Check your spelling and singular/plural."},
+{t:"8C1",c:"Explain",m:2,q:"Explain how oxygen gets from the air in an alveolus into the blood.",p:["oxygen diffuses (from alveolus into blood)","from a high concentration to a low concentration / more to less"],tip:"Use the word diffuses."},
+{t:"8C1",c:"Evaluate",m:4,q:"Analyse how the structure of the alveoli makes them well adapted for gas exchange. Give two features.",p:["millions of alveoli / large surface area","so more gas exchanged at once","wall one cell thick / short diffusion distance","so diffusion is faster (or: moist lining so gases dissolve; capillaries keep the concentration gradient)"],tip:"Feature, then what it does. Two features, two marks each."},
+{t:"8C2",c:"Describe",m:2,q:"Describe what the intercostal muscles and the diaphragm do when you breathe in.",p:["intercostal muscles contract, ribs move up and out","diaphragm contracts, flattens and moves down"],tip:"Contract, not relax."},
+{t:"8C2",c:"Explain",m:5,q:"Explain how air is drawn into the lungs when you breathe in.",p:["muscles (diaphragm / intercostals) contract","so the volume of the chest increases","so the pressure inside the lungs decreases","pressure outside is now higher than inside","so air moves in from high to low pressure"],tip:"No mark for 'the lungs suck air in'. The marks are in the joins: so, which means, therefore."},
+{t:"8C2",c:"Explain",m:4,q:"Explain how air is pushed out of the lungs when you breathe out.",p:["muscles relax","volume of the chest decreases","pressure inside the lungs increases (higher than outside)","air moves out"],tip:"Same chain, opposite direction."},
+{t:"8C2",c:"Evaluate",m:3,q:"Evaluate the bell jar model of breathing. Give one strength and two limitations.",p:["strength: pulling the sheet down increases volume and air enters the balloons","limitation: the jar is rigid but a real rib cage moves","limitation: no intercostal muscles / balloons do not branch into alveoli"],tip:"A limitation is a way the model is different from the real thing."},
+{t:"8C3",c:"Describe",m:3,q:"Describe two differences between inhaled and exhaled air, using numbers.",p:["oxygen falls from about 21% to about 16%","carbon dioxide rises from about 0.04% to about 4%","exhaled air is warmer / has more water vapour"],tip:"Use 'about'. Any two differences with numbers plus one extra."},
+{t:"8C3",c:"Explain",m:3,q:"Explain why exhaled air contains more carbon dioxide than inhaled air.",p:["carbon dioxide is made by respiration in cells","it is carried in the blood to the lungs","it diffuses into the alveoli and is breathed out"],tip:"Link it to respiration, not breathing."},
+{t:"8C3",c:"Explain",m:1,q:"Explain why the percentage of nitrogen is the same in inhaled and exhaled air.",p:["the body does not use nitrogen"],tip:""},
+{t:"8C4",c:"State",m:2,q:"Write the word equation for aerobic respiration.",p:["glucose + oxygen on the left","carbon dioxide + water on the right"],tip:"Don't write energy as a product."},
+{t:"8C4",c:"Explain",m:2,q:"A student writes: 'Breathing and respiration are the same thing.' Explain why they are wrong.",p:["breathing is moving air in and out of the lungs using muscles","respiration is a chemical reaction in every cell that releases energy"],tip:"One is a movement, one is a reaction."},
+{t:"8C4",c:"Evaluate",m:3,q:"Muscle cells contain many more mitochondria than skin cells. Suggest why.",p:["muscle cells contract / do a lot of work","so need a lot of energy","mitochondria are where respiration releases energy, so more mitochondria release more energy"],tip:"Released, not made."},
+{t:"8C4",c:"Explain",m:3,q:"Extension: explain why you keep breathing hard after a sprint has finished.",p:["anaerobic respiration made lactic acid","an oxygen debt has built up","extra oxygen is needed to break down the lactic acid"],tip:""},
+{t:"8C5",c:"Explain",m:4,q:"Explain why heart rate and breathing rate increase during exercise.",p:["muscles contract more so need more energy","rate of respiration in muscle cells increases","more oxygen (and glucose) must be delivered and more carbon dioxide removed","breathing faster/deeper gets more oxygen into blood; heart beats faster to carry it to muscles"],tip:"'The body needs more energy' alone is not enough."},
+{t:"WS7",c:"Evaluate",m:3,q:"Pulse readings after exercise: 112, 118, 150, 115 bpm. Identify the anomaly, calculate the mean without it, and suggest one way to make the results more reliable.",p:["anomaly is 150","mean = (112 + 118 + 115) ÷ 3 = 115 bpm","repeat the readings / compare with other groups / measure for the same time each go"],tip:"An improvement must say what it fixes."}
+];
+const saEl=document.getElementById("sa");
+let saState=store.get("u8c-sa",{});
+function saveSA(){store.set("u8c-sa",saState)}
+function total(){let got=0,max=0;S.forEach((s,i)=>{max+=s.m;got+=(saState[i]?.ticks||[]).filter(Boolean).length});document.getElementById("tot").textContent=got+" / "+max}
+function renderSA(){
+  saEl.innerHTML=S.map((s,i)=>{const st=saState[i]||{};return `<div class="sacard">
+   <div class="sahead"><span><span class="cmd">${s.c}</span> <span class="note">${s.t} · Q${i+1}</span></span><span class="marks">${s.m} mark${s.m>1?"s":""}</span></div>
+   <p style="font-weight:700;margin-top:8px">${s.q}</p>
+   <label class="note" for="ans${i}">Your answer</label>
+   <textarea id="ans${i}" data-i="${i}">${(st.text||"").replace(/</g,"&lt;")}</textarea>
+   <details class="ms" ${st.open?"open":""} data-i="${i}"><summary style="cursor:pointer;font-weight:700;color:var(--air)">Mark scheme: tick what you wrote</summary>
+   ${s.p.map((p,j)=>`<label><input type="checkbox" id="ms${i}_${j}" data-i="${i}" data-j="${j}" ${(st.ticks||[])[j]?"checked":""}><span>${p}</span></label>`).join("")}
+   ${s.tip?`<div class="tip">Tip: ${s.tip}</div>`:""}</details></div>`}).join("");
+  saEl.querySelectorAll("textarea").forEach(t=>t.addEventListener("input",()=>{const i=t.dataset.i;saState[i]={...(saState[i]||{}),text:t.value};saveSA()}));
+  saEl.querySelectorAll("input[type=checkbox]").forEach(c=>c.addEventListener("change",()=>{const i=c.dataset.i;const st=saState[i]||{};const ticks=st.ticks||[];ticks[c.dataset.j]=c.checked;saState[i]={...st,ticks};saveSA();total()}));
+  saEl.querySelectorAll("details.ms").forEach(d=>d.addEventListener("toggle",()=>{const i=d.dataset.i;saState[i]={...(saState[i]||{}),open:d.open};saveSA()}));
+  total();
+}
+let confirmReset=false;
+document.getElementById("resetSA").addEventListener("click",e=>{
+  if(!confirmReset){confirmReset=true;e.target.textContent="Tap again to clear everything";setTimeout(()=>{confirmReset=false;e.target.textContent="Clear all answers"},3000);return}
+  saState={};saveSA();renderSA();confirmReset=false;e.target.textContent="Clear all answers";
+});
+renderSA();
+})();
+</script>
+</body>
+</html>
